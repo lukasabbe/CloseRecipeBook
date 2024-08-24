@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "closerecipebook",
+  "version": "${version}",
+  "name": "CloseRecipeBook",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/closerecipebook/icon.png",
+  "environment": "client",
+  "entrypoints": {},
+  "mixins": [
+    "closerecipebook.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": ">=${minecraft_version}"
+  }
+}
