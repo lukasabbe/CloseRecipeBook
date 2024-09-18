@@ -1,5 +1,6 @@
 package me.lukasabbe.closerecipebook.mixin;
 
+import me.lukasabbe.closerecipebook.util.RecipeBookUtil;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.recipebook.ClientRecipeBook;
 import net.minecraft.recipe.book.RecipeBookCategory;
@@ -17,13 +18,7 @@ public class RecipeBookMixin {
 
     @Inject(method = "closeScreen", at= @At("HEAD"))
     public void onClosedInject(CallbackInfo ci){
-        closeAllGuis();
+        RecipeBookUtil.closeAllRecipeBooks(recipeBook);
     }
-    @Unique
-    private void closeAllGuis(){
-        recipeBook.setGuiOpen(RecipeBookCategory.CRAFTING, false);
-        recipeBook.setGuiOpen(RecipeBookCategory.BLAST_FURNACE, false);
-        recipeBook.setGuiOpen(RecipeBookCategory.FURNACE, false);
-        recipeBook.setGuiOpen(RecipeBookCategory.SMOKER, false);
-    }
+
 }
