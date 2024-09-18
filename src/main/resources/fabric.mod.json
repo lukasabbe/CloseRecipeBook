@@ -3,7 +3,7 @@
   "id": "closerecipebook",
   "version": "${version}",
   "name": "CloseRecipeBook",
-  "description": "Always closes the recipe book after you have you closed down your crafting table",
+  "description": "The recipe book menu closes after you have used it.",
   "authors": ["Lukasabbe"],
   "contact": {},
   "license": "MIT",
