@@ -7,7 +7,8 @@
   ],
   "client": [
     "RecipeBookAccessor",
-    "RecipeBookMixin"
+    "RecipeBookMixin",
+    "RecipeBookScreenAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
