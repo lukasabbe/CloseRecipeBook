@@ -2,10 +2,12 @@
   "schemaVersion": 1,
   "id": "closerecipebook",
   "version": "${version}",
-  "name": "CloseRecipeBook",
+  "name": "Close Recipe Book",
   "description": "The recipe book menu closes after you have used it.",
   "authors": ["Lukasabbe"],
-  "contact": {},
+  "contact": {
+    "sources": "https://github.com/lukasabbe/CloseRecipeBook"
+  },
   "license": "MIT",
   "icon": "assets/closerecipebook/icon.png",
   "environment": "client",
@@ -15,6 +17,6 @@
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "minecraft": ">=1.21.2"
+    "minecraft": ">=1.21.4"
   }
 }
