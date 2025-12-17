@@ -1,13 +1,13 @@
 package me.lukasabbe.closerecipebook.mixin;
 
 import me.lukasabbe.closerecipebook.util.RecipeBookUtil;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.RecipeBookScreen;
-import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.recipebook.ClientRecipeBook;
-import net.minecraft.recipe.book.RecipeBookType;
+import net.minecraft.client.ClientRecipeBook;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen;
+import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.inventory.RecipeBookType;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,21 +15,21 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ClientPlayerEntity.class)
+@Mixin(LocalPlayer.class)
 public class RecipeBookMixin {
     @Shadow @Final private ClientRecipeBook recipeBook;
 
-    @Shadow @Final public ClientPlayNetworkHandler networkHandler;
+    @Shadow @Final public ClientPacketListener connection;
 
-    @Shadow @Final protected MinecraftClient client;
+    @Shadow @Final protected Minecraft minecraft;
 
-    @Inject(method = "closeScreen", at= @At("HEAD"))
+    @Inject(method = "clientSideCloseContainer", at= @At("HEAD"))
     public void onClosedInject(CallbackInfo ci){
-        if(client != null && client.currentScreen != null){
-            if(client.currentScreen instanceof RecipeBookScreen<?> recipeBookProvider){
-                final RecipeBookWidget<?> recipeBookWidget = ((RecipeBookScreenAccessor) recipeBookProvider).getRecipeBook();
-                final RecipeBookType category = ((RecipeBookAccessor) recipeBookWidget).getCraftingHandler().getCategory();
-                RecipeBookUtil.closeRecipeBook(recipeBook,networkHandler, category);
+        if(minecraft != null && minecraft.screen != null){
+            if(minecraft.screen instanceof AbstractRecipeBookScreen<?> recipeBookProvider){
+                final RecipeBookComponent<?> recipeBookWidget = ((RecipeBookScreenAccessor) recipeBookProvider).getRecipeBook();
+                final RecipeBookType category = ((RecipeBookAccessor) recipeBookWidget).getCraftingHandler().getRecipeBookType();
+                RecipeBookUtil.closeRecipeBook(recipeBook, connection, category);
             }
         }
     }
