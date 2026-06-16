@@ -25,8 +25,8 @@ public class RecipeBookMixin {
 
     @Inject(method = "clientSideCloseContainer", at= @At("HEAD"))
     public void onClosedInject(CallbackInfo ci){
-        if(minecraft != null && minecraft.screen != null){
-            if(minecraft.screen instanceof AbstractRecipeBookScreen<?> recipeBookProvider){
+        if(minecraft != null && minecraft.gui.screen() != null){
+            if(minecraft.gui.screen() instanceof AbstractRecipeBookScreen<?> recipeBookProvider){
                 final RecipeBookComponent<?> recipeBookWidget = ((RecipeBookScreenAccessor) recipeBookProvider).getRecipeBook();
                 final RecipeBookType category = ((RecipeBookAccessor) recipeBookWidget).getCraftingHandler().getRecipeBookType();
                 RecipeBookUtil.closeRecipeBook(recipeBook, connection, category);
